@@ -5,6 +5,8 @@
     using System.Text;
     using System.Windows.Input;
 
+    using MvvmHelpers;
+
     using WeatherVortexMobile.Models;
 
     using Xamarin.Forms;
@@ -58,7 +60,7 @@
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            // await DataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

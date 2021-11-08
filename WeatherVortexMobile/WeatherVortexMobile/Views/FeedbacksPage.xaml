@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WeatherVortexMobile.Views.FeedbacksPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:WeatherVortexMobile.Models"
+    xmlns:viewModels="clr-namespace:WeatherVortexMobile.ViewModels"
+    x:Name="BrowseFeedbacksPage"
+    Title="{Binding Title}"
+    x:DataType="viewModels:FeedbacksViewModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColor},
+                                      Default={StaticResource Primary}}">
+
+    <RefreshView Command="{Binding LoadFeedbacksCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView
+            x:Name=" FeedbacksListView"
+            ItemsSource="{Binding Feedbacks}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="models:Feedback">
+                        <Label Text="{Binding Description}" />
+                        <Slider
+                            Maximum="5"
+                            Minimum="0"
+                            Value="{Binding Rating}" />
+                        <Label Text="{Binding User.FirstName}" />
+                        <Label Text="{Binding User.LastName}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

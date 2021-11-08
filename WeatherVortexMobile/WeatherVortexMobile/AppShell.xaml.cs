@@ -1,25 +1,52 @@
 ﻿namespace WeatherVortexMobile
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics;
 
-    using WeatherVortexMobile.ViewModels;
+    using WeatherVortexMobile.Services;
     using WeatherVortexMobile.Views;
 
+    using Xamarin.Essentials;
     using Xamarin.Forms;
 
-    public partial class AppShell : Xamarin.Forms.Shell
+    /// <summary>
+    /// Shell navigation class.
+    /// </summary>
+    public partial class AppShell : Shell
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppShell"/> class.
+        /// </summary>
         public AppShell()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            var store = DependencyService.Get<ForecastsDataStore>();
+            if (store != null)
+            {
+                try
+                {
+                    var res = await store.LogoutAsync();
+                    if (res)
+                    {
+                        await Shell.Current.GoToAsync("//LoginPage");
+                    }
+                    else
+                    {
+                        await MainThread.InvokeOnMainThreadAsync(async () =>
+                        await Application.Current.MainPage.DisplayAlert("Logout error", "Logout error", "Bad..."));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Logout exception:", ex.Message);
+                }
+            }
         }
     }
 }

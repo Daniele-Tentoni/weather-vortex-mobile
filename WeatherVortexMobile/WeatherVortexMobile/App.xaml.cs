@@ -1,32 +1,33 @@
 ﻿namespace WeatherVortexMobile
 {
-    using System;
-
     using WeatherVortexMobile.Services;
-    using WeatherVortexMobile.Views;
 
     using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
 
     public partial class App : Application
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="App"/> class.
+        /// </summary>
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            DependencyService.Register<ForecastsDataStore>();
+            this.MainPage = new AppShell();
         }
 
+        /// <inheritdoc/>
         protected override void OnStart()
         {
         }
 
+        /// <inheritdoc/>
         protected override void OnSleep()
         {
         }
 
+        /// <inheritdoc/>
         protected override void OnResume()
         {
         }

@@ -1,9 +1,12 @@
 ﻿namespace WeatherVortexMobile.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Threading.Tasks;
+
+    using MvvmHelpers;
 
     using WeatherVortexMobile.Models;
     using WeatherVortexMobile.Views;
@@ -37,7 +40,7 @@
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = new List<Item>(); // await DataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);

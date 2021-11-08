@@ -4,6 +4,8 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
 
+    using MvvmHelpers;
+
     using WeatherVortexMobile.Models;
 
     using Xamarin.Forms;
@@ -45,7 +47,7 @@
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = new { Id = "", Text = "", Description = "" }; // await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;

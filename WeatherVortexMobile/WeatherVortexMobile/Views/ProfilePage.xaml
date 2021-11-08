@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WeatherVortexMobile.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:WeatherVortexMobile.ViewModels"
+    Title="{Binding Title}"
+    x:DataType="viewModels:ProfileViewModel"
+    BackgroundColor="{AppThemeBinding Dark=#212121,
+                                      Default=#DEDEDE}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="stlMainFrame" TargetType="Frame">
+                <Setter Property="TranslationY" Value="{OnPlatform iOS='-150', Android='0'}" />
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+            <Style x:Key="stlContactBtn" TargetType="Button">
+                <Setter Property="TranslationY" Value="-50" />
+                <Setter Property="TranslationX" Value="45" />
+                <Setter Property="BackgroundColor" Value="#636363" />
+                <Setter Property="WidthRequest" Value="56" />
+                <Setter Property="HeightRequest" Value="56" />
+                <Setter Property="CornerRadius" Value="28" />
+            </Style>
+            <Style x:Key="stlBoardTitle" TargetType="Label">
+                <Setter Property="Padding" Value="0,30,0,5" />
+                <Setter Property="TextColor" Value="#a5a2a2" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="stlBoardDesc" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--
+            1. Profile picture.
+            Missing
+            Source="Katty"
+        -->
+        <Image Grid.Row="0" VerticalOptions="Start" />
+        <!--  2. Contact informaqtion frame  -->
+        <ScrollView
+            Grid.Row="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+            <StackLayout
+                BackgroundColor="#212121"
+                HeightRequest="600"
+                TranslationY="228"
+                VerticalOptions="End">
+                <Frame
+                    BackgroundColor="#424242"
+                    CornerRadius="40"
+                    Style="{StaticResource stlMainFrame}">
+                    <!--  Blocks: 3 and 4  -->
+                    <Grid Padding="25,10,25,0" RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!--  3. Phone & message buttons  -->
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="#636363"
+                            HorizontalOptions="End"
+                            Style="{StaticResource stlContactBtn}"
+                            Text="C"
+                            TextColor="#BDBDBD" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            BackgroundColor="#636363"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource stlContactBtn}"
+                            Text="M"
+                            TextColor="#BDBDBD" />
+
+                        <!--  4. Contact information  -->
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            Text="{Binding User.FullName, Mode=OneTime}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontSize="16"
+                            Text="New York"
+                            TextColor="#a5a2a2" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            Padding="0,10,0,0"
+                            FontSize="16">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold" Text="Email: " />
+                                    <Span Text="{Binding User.Email, StringFormat=' {0}'}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <!--  4. Contact information: Board inforation  -->
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Style="{StaticResource stlBoardTitle}"
+                            Text="Publications" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Style="{StaticResource stlBoardDesc}"
+                            Text="678" />
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource stlBoardTitle}"
+                            Text="Following" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Style="{StaticResource stlBoardDesc}"
+                            Text="340" />
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Style="{StaticResource stlBoardTitle}"
+                            Text="Followers" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Style="{StaticResource stlBoardDesc}"
+                            Text="67k" />
+
+                        <Grid
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            Margin="0,20,0,2"
+                            ColumnDefinitions="*,*"
+                            RowDefinitions="*">
+
+                            <!--  4. Contact information: Follow button  -->
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                BackgroundColor="#636363"
+                                FontAttributes="Bold"
+                                FontSize="17"
+                                HeightRequest="45"
+                                Text="Stations"
+                                TextColor="#DEDEDE" />
+
+                            <!--  4. Contact information: Follow button  -->
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                BackgroundColor="#636363"
+                                FontAttributes="Bold"
+                                FontSize="17"
+                                HeightRequest="45"
+                                Text="Feedbacks"
+                                TextColor="#DEDEDE" />
+                        </Grid>
+
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
